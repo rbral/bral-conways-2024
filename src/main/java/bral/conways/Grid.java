@@ -30,8 +30,7 @@ public class Grid
                     if (liveNeighbors < 2 || liveNeighbors > 3)
                     {
                         newField[y][x] = 0; // cell dies
-                    }
-                    else
+                    } else
                     {
                         newField[y][x] = 1;
                     }
@@ -54,7 +53,7 @@ public class Grid
         int liveNeighbors = 0;
         for (int h = -1; h <= 1; h++) // horizontal check neighbors (negative means left of curr cell)
         {
-            for (int v = -1; v <=1; v++) // vertical check neighbors
+            for (int v = -1; v <= 1; v++) // vertical check neighbors
             {
                 if (h == 0 && v == 0)
                 {
@@ -74,17 +73,17 @@ public class Grid
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
-/*
-please note: comments are left only to show the efforts
-I invested in previous attempts,
-but they will be deleted.
+    /*
+    please note: comments are left only to show the efforts
+    I invested in previous attempts,
+    but they will be deleted.
 
     public void move(int x1, int y1, int x2, int y2)
     {
         field[y1][x1] = 0;
         field[y2][x2] = 1;
     }
-*/
+    */
 
     public String toString()
     {
