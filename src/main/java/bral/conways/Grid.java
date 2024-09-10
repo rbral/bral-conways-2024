@@ -18,9 +18,9 @@ public class Grid
         // for storing new grid generation:
         int[][] newField = new int[height][width];
         // using 3 by 3 field:
-        for (int y = 0; y < 3; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < 3; x++)
+            for (int x = 0; x < width; x++)
             {
                 int liveNeighbors = countLiveNeighbors(x, y);
 
@@ -34,13 +34,11 @@ public class Grid
                     {
                         newField[y][x] = 1;
                     }
-                } else // if curr cell is dead:
+                } else if (liveNeighbors == 3) // if curr cell is dead
                 {
-                    if (liveNeighbors == 3)
-                    {
-                        newField[y][x] = 1; // becomes alive
-                    }
+                    newField[y][x] = 1; // becomes alive
                 }
+
             }
         }
 
