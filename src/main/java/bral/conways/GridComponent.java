@@ -26,16 +26,16 @@ public class GridComponent extends JComponent
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int xPos = e.getX() / 20;
-                int yPos = (getHeight() - e.getY()) / 20; // because y lines start at bottom
+                int posX = e.getX() / 20;
+                int posY = (getHeight() - e.getY()) / 20; // because y lines start at bottom
 
-                if (grid.isInBounds(xPos, yPos))
+                if (grid.isInBounds(posX, posY))
                 {
-                    if (!grid.isAlive(xPos, yPos))
+                    if (!grid.isAlive(posX, posY))
                     {
-                        grid.put(xPos, yPos);
+                        grid.put(posX, posY);
                     } else {
-                        grid.remove(xPos, yPos);
+                        grid.remove(posX, posY);
                     }
 
 
