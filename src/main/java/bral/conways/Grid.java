@@ -13,6 +13,31 @@ public class Grid
         this.height = height;
     }
 
+    // getters:
+    public int[][] getField() {
+        return field;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+
+    public void put(int x, int y)
+    {
+        field[y][x] = 1;
+    }
+
+    public void remove(int x, int y)
+    {
+        field[y][x] = 0;
+    }
+
+
     public void nextGen()
     {
         // for storing new grid generation:
@@ -42,7 +67,7 @@ public class Grid
             }
         }
 
-        // update field to nect gen:
+        // update field to next gen:
         field = newField;
     }
 
@@ -66,22 +91,15 @@ public class Grid
         return liveNeighbors;
     }
 
-    private boolean isInBounds(int x, int y)
+    public boolean isInBounds(int x, int y)
     {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
-    /*
-    please note: comments are left only to show the efforts
-    I invested in previous attempts,
-    but they will be deleted.
-
-    public void move(int x1, int y1, int x2, int y2)
+    public boolean isAlive(int x, int y)
     {
-        field[y1][x1] = 0;
-        field[y2][x2] = 1;
+        return field[y][x] == 1;
     }
-    */
 
     public String toString()
     {
