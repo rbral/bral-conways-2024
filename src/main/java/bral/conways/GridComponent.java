@@ -9,17 +9,12 @@ import java.awt.event.MouseMotionListener;
 public class GridComponent extends JComponent
 {
     private final Grid grid;
-
-    //private final int[][] currField;
-
     private final int height;
-
     private final int width;
 
     public GridComponent(Grid grid)
     {
         this.grid = grid;
-        //this.currField = grid.getField();
         this.height = grid.getHeight();
         this.width = grid.getWidth();
 
@@ -37,13 +32,8 @@ public class GridComponent extends JComponent
                     } else {
                         grid.remove(posX, posY);
                     }
-
-
                 }
                 repaint();
-
-
-                //grid.put(e.getX(), e.getY());
             }
 
             @Override
@@ -93,8 +83,6 @@ public class GridComponent extends JComponent
         // alive cells:
         g.setColor(Color.black);
 
-        //int[][] currField = grid.getField();
-
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -105,26 +93,8 @@ public class GridComponent extends JComponent
                 }
             }
         }
-        //repaint();
-
         g.translate(30, getHeight() - 30);
-        /*Timer timer = new Timer(1000, e -> repaint());
-        timer.start();*/
-
-        //grid.nextGen();
     }
-
-    /*public void setGrid(Grid grid)
-    {
-        this.grid = grid;
-    }*/
-
-    /*
-    Please note: all comments will be deleted.
-    they are only here to show the effort invested in this assignment.
-     */
-
-
 
 
 }
