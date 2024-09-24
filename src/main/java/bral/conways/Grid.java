@@ -139,9 +139,9 @@ public class Grid
     }
 
 
-    public void loadFileRLE(String stringRLE)
+    public void loadRleFile(String rle)
     {
-        String[] lines = stringRLE.split("\n");
+        String[] lines = rle.split("\n");
         // for keeping track of where to place cells on grid:
         int positionX = 0;
         int positionY = 0;

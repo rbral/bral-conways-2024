@@ -53,7 +53,7 @@ public class GridTest {
     }
 
     @Test
-    public void loadFileRLE() throws IOException, URISyntaxException {
+    public void loadRleFile() throws IOException, URISyntaxException {
         // given
         Grid grid = new Grid(3, 3);
 
@@ -65,7 +65,7 @@ public class GridTest {
         Path path = Paths.get(classLoader.getResource("glider.rle").toURI());
 
         String rleData = new String(Files.readAllBytes(path));
-        grid.loadFileRLE(rleData);
+        grid.loadRleFile(rleData);
 
         // then
         assertEquals("010\n001\n111\n", grid.toString());
