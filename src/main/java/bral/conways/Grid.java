@@ -156,7 +156,8 @@ public class Grid
             {
                 // set the dimentions
                 String[] dimentions = line.split(",");
-                int width = Integer.parseInt(dimentions[0].split("=")[1].trim()); // getting the number after the = sign:
+                // getting the number after the = sign:
+                int width = Integer.parseInt(dimentions[0].split("=")[1].trim());
                 int height = Integer.parseInt(dimentions[1].split("=")[1].trim());
                 field = new int[height][width];
                 this.width = width;
@@ -182,10 +183,9 @@ public class Grid
                         // now we have a complete number so update count:
                         count = Integer.parseInt(num.toString());
 
-                        // update ix to continue after the multi-digit number:
-                        ix = tempIx -1; // -1 because main loop will do ix++
+                        // update ix to continue after the multi - digit number:
+                        ix = tempIx - 1; // -1 because main loop will do ix++
                     }
-
                     if (charArray[ix] == 'b')
                     {
                         // dead cells: move positionX to the right
@@ -206,8 +206,7 @@ public class Grid
                         positionX = 0;
                         ++positionY;
                         count = 1;
-                    }
-                    else if (charArray[ix] == '!')
+                    } else if (charArray[ix] == '!')
                     {
                         return; // end of RLE file
                     }
