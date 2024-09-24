@@ -2,6 +2,12 @@ package bral.conways;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GridTest {
@@ -44,6 +50,25 @@ public class GridTest {
 
         // then
         assertEquals("010\n010\n010\n", grid.toString());
+    }
+
+    @Test
+    public void loadFileRLE() throws IOException, URISyntaxException {
+        // given
+        Grid grid = new Grid(3, 3);
+
+        // when
+        //grid.loadFileRLE("#C This is a glider.\nx = 3, y = 3\nbo$2bo$3o!");
+
+        // Access the file using the class loader
+        ClassLoader classLoader = getClass().getClassLoader();
+        Path path = Paths.get(classLoader.getResource("glider.rle").toURI());
+
+        String rleData = new String(Files.readAllBytes(path));
+        grid.loadFileRLE(rleData);
+
+        // then
+        assertEquals("010\n001\n111\n", grid.toString());
     }
 
 

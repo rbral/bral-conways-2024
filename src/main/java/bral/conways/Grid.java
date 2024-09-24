@@ -139,5 +139,104 @@ public class Grid
     }
 
 
+    public void loadFileRLE(String stringRLE)
+    {
+        String[] lines = stringRLE.split("\n");
+        // for keeping track of where to place cells on grid:
+        int positionX = 0;
+        int positionY = 0;
+
+        for (String line : lines)
+        {
+            if (line.startsWith("#C") || line.startsWith("#c"))
+            {
+                continue; // skip over comments
+            }
+            if (line.startsWith("x"))
+            {
+                // set the dimentions
+                String[] dimentions = line.split(",");
+                int width = Integer.parseInt(dimentions[0].split("=")[1].trim()); // getting the number after the = sign:
+                int height = Integer.parseInt(dimentions[1].split("=")[1].trim());
+                field = new int[height][width];
+                this.width = width;
+                this.height = height;
+            } else
+            {
+                int count = 1; // default count
+
+                char[] charArray = line.toCharArray();
+                for (int ix = 0; ix < charArray.length; ix++)
+                {
+                    if (Character.isDigit(charArray[ix]))
+                    {
+                        // check for multi digit numbers:
+                        StringBuilder num = new StringBuilder();
+                        int tempIx = ix;
+
+                        while (tempIx < charArray.length && Character.isDigit(charArray[tempIx]))
+                        {
+                            num.append(charArray[tempIx]);
+                            ++tempIx;
+                        }
+                        // now we have a complete number so update count:
+                        count = Integer.parseInt(num.toString());
+
+                        // update ix to continue after the multi-digit number:
+                        ix = tempIx -1; // -1 because main loop will do ix++
+                    }
+
+                    if (charArray[ix] == 'b')
+                    {
+                        // dead cells: move positionX to the right
+                        positionX += count;
+                        count = 1;
+                    } else if (charArray[ix] == 'o')
+                    {
+                        // alive cells: put count live cells
+                        for (int jx = 0; jx < count; jx++)
+                        {
+                            put(positionX++, positionY);
+                            //positionX++;
+                        }
+                        count = 1;
+                    } else if (charArray[ix] == '$')
+                    {
+                        // new line so reset:
+                        positionX = 0;
+                        ++positionY;
+                        count = 1;
+                    }
+                    else if (charArray[ix] == '!')
+                    {
+                        return; // end of RLE file
+                    }
+                }
+
+
+
+                /*for (char ch : charArray)
+                {
+                    int count = 1; // default amount of cells to put
+                    if (Character.isDigit(ch))
+                    {
+                        while (charArray)
+                    }
+                    switch (ch)
+                    {
+                        case 'b':
+                            // dead cells: move positionX to the right
+                            ++positionX;
+                        case 'o':
+                            // alive cells:
+                        case '$':
+                            //
+
+
+                    }
+                }*/
+            }
+        }
+    }
 
 }
