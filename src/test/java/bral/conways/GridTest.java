@@ -58,8 +58,6 @@ public class GridTest {
         Grid grid = new Grid(3, 3);
 
         // when
-        //grid.loadFileRLE("#C This is a glider.\nx = 3, y = 3\nbo$2bo$3o!");
-
         // Access the file using the class loader
         ClassLoader classLoader = getClass().getClassLoader();
         Path path = Paths.get(classLoader.getResource("glider.rle").toURI());

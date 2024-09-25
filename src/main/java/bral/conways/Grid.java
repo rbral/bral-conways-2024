@@ -197,7 +197,6 @@ public class Grid
                         for (int jx = 0; jx < count; jx++)
                         {
                             put(positionX++, positionY);
-                            //positionX++;
                         }
                         count = 1;
                     } else if (charArray[ix] == '$')
@@ -211,29 +210,6 @@ public class Grid
                         return; // end of RLE file
                     }
                 }
-
-
-
-                /*for (char ch : charArray)
-                {
-                    int count = 1; // default amount of cells to put
-                    if (Character.isDigit(ch))
-                    {
-                        while (charArray)
-                    }
-                    switch (ch)
-                    {
-                        case 'b':
-                            // dead cells: move positionX to the right
-                            ++positionX;
-                        case 'o':
-                            // alive cells:
-                        case '$':
-                            //
-
-
-                    }
-                }*/
             }
         }
     }
