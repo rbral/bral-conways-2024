@@ -63,6 +63,7 @@ public class GridTest {
         Path path = Paths.get(classLoader.getResource("glider.rle").toURI());
 
         String rleData = new String(Files.readAllBytes(path));
+
         grid.loadRleFile(rleData);
 
         // then
