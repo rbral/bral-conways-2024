@@ -41,7 +41,7 @@ public class GridFrame extends JFrame
 
         pasteButton = new JButton("Paste");
         south.add(pasteButton);
-        pasteButton.addActionListener(e -> paste());
+        pasteButton.addActionListener(e -> rawPaste());
 
         // put grid in center:
         gridComponent = new GridComponent(grid);
@@ -70,6 +70,23 @@ public class GridFrame extends JFrame
             playPauseButton.setText("Play");
         }
 
+    }
+
+    private void rawPaste()
+    {
+//        try
+//        {
+            //String clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+            //String rleData = clipboardContents;
+            String rleData = "#C This is a glider.\nx = 3, y = 3\nbo$2bo$3o!";
+            grid.loadRleFile(rleData);
+            gridComponent.repaint();
+
+//        }
+        /*catch (UnsupportedFlavorException | IOException e)
+        {
+            e.printStackTrace();
+        }*/
     }
 
     private void paste()

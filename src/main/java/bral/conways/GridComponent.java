@@ -9,14 +9,14 @@ import java.awt.event.MouseMotionListener;
 public class GridComponent extends JComponent
 {
     private final Grid grid;
-    private final int height;
-    private final int width;
+    /*private final int height;
+    private final int width;*/
 
     public GridComponent(Grid grid)
     {
         this.grid = grid;
-        this.height = grid.getHeight();
-        this.width = grid.getWidth();
+        /*this.height = grid.getHeight();
+        this.width = grid.getWidth();*/
 
         addMouseListener(new MouseListener() {
             @Override
@@ -83,9 +83,9 @@ public class GridComponent extends JComponent
         // alive cells:
         g.setColor(Color.black);
 
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < grid.getHeight(); y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < grid.getHeight(); x++)
             {
                 if (grid.isAlive(x, y))
                 {
