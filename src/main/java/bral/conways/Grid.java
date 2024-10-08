@@ -141,6 +141,9 @@ public class Grid
 
     public void loadRleFile(String rle)
     {
+        // another way to read file:
+        //String wholeFile = IOUtils.toString(new FileReader(filepath));
+
         String[] lines = rle.split("\n");
         // for keeping track of where to place cells on grid:
         int positionX = 0;
