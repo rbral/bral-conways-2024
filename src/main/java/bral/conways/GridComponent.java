@@ -18,11 +18,16 @@ public class GridComponent extends JComponent
         /*this.height = grid.getHeight();
         this.width = grid.getWidth();*/
 
+        int cellSize = 20;
+        int width = grid.getWidth() * cellSize;
+        int height = grid.getHeight() * cellSize;
+        setPreferredSize(new Dimension(width, height));
+
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int posX = e.getX() / 20;
-                int posY = (getHeight() - e.getY()) / 20; // because y lines start at bottom
+                int posX = e.getX() / cellSize;
+                int posY = (getHeight() - e.getY()) / cellSize; // because y lines start at bottom
 
                 if (grid.isInBounds(posX, posY))
                 {
@@ -89,7 +94,9 @@ public class GridComponent extends JComponent
             {
                 if (grid.isAlive(x, y))
                 {
-                    g.fillRect(x * 20, getHeight() - (y + 1) * 20, 20, 20);
+                    int positionX = x * 20;
+                    int positionY = getHeight() - (y + 1) * 20;
+                    g.fillRect(positionX, positionY, 20, 20);
                 }
             }
         }

@@ -41,11 +41,20 @@ public class GridFrame extends JFrame
 
         pasteButton = new JButton("Paste");
         south.add(pasteButton);
-        pasteButton.addActionListener(e -> paste());
+        pasteButton.addActionListener(e -> defaultPaste());
 
         // put grid in center:
         gridComponent = new GridComponent(grid);
-        main.add(gridComponent, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(gridComponent);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        main.add(scrollPane, BorderLayout.CENTER);
+
+        //main.add(gridComponent, BorderLayout.CENTER);
+
+        //pack(); // resize frame to fit preferred size
+        //setLocationRelativeTo(null); // center window on screen
+        setVisible(true);
     }
 
 
