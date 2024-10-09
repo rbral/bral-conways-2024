@@ -72,7 +72,7 @@ public class GridFrame extends JFrame
 
     }
 
-    private void rawPaste()
+    private void defaultPaste()
     {
             String rleData = "#C This is a glider.\nx = 3, y = 3\nbo$2bo$3o!";
             grid.loadRleFile(rleData);
@@ -110,7 +110,6 @@ public class GridFrame extends JFrame
             gridComponent.repaint();
 
 
-
             // experimenting...
             /*if (rleData != null) {
                 // minimum grid size is 100
@@ -122,43 +121,32 @@ public class GridFrame extends JFrame
                 int patternWidth = tempGrid.getWidth();
                 int patternHeight = tempGrid.getHeight();
 
-                int requiredWidth = Math.max(minGridSize, tempGrid.getWidth());
-                int requiredHeight = Math.max(minGridSize, tempGrid.getHeight());
+                int requiredWidth = Math.max(minGridSize, patternWidth);
+                int requiredHeight = Math.max(minGridSize, patternHeight);
 
-                // set grid to new size if needed:
-                if (requiredWidth > grid.getWidth() || requiredHeight > grid.getHeight())
-                {
-                    grid = new Grid(requiredWidth, requiredHeight);
-                    //gridComponent = new GridComponent(grid);
+                grid.setWidth(requiredWidth);
+                grid.setHeight(requiredHeight);
+                grid.setField(new int[requiredHeight][requiredWidth]);
 
+                // center pattern on the grid
+                int shiftX = (requiredWidth - patternWidth) / 2;
+                int shiftY = (requiredHeight - patternHeight) / 2;
 
-                    // center pattern on the grid
-                    int shiftX = (requiredWidth - grid.getWidth()) / 2;
-                    int shiftY = (requiredHeight - grid.getHeight()) / 2;
-                    for (int y = 0; y < grid.getHeight(); ++y) {
-                        for (int x = 0; x < grid.getWidth(); ++x) {
-                            if (grid.isAlive(x, y)) {
-                                resizedGrid.put(x + shiftX, y + shiftY);
-                            }
-                        }
-                    }
-                    gridComponent = new GridComponent(resizedGrid);
-                }
-
-
-                // Center the pattern from tempGrid on the resized (or original) grid
-                int shiftX = (grid.getWidth() - tempGrid.getWidth()) / 2;
-                int shiftY = (grid.getHeight() - tempGrid.getHeight()) / 2;
-                for (int y = 0; y < tempGrid.getHeight(); ++y) {
-                    for (int x = 0; x < tempGrid.getWidth(); ++x) {
-                        if (tempGrid.isAlive(x, y)) {
+                for (int y = 0; y < grid.getHeight(); ++y) {
+                    for (int x = 0; x < grid.getWidth(); ++x) {
+                        if (grid.isAlive(x, y)) {
                             grid.put(x + shiftX, y + shiftY);
                         }
                     }
                 }
+                gridComponent.repaint();*/
 
                 // update the grid component:
-                gridComponent = new GridComponent(grid);
+                /*
+                please note: comments will be deleted after. they are only here
+                to show the effort I invested with multiple attempts
+
+               gridComponent = new GridComponent(grid);
                 getContentPane().removeAll(); // Remove the old component
                 getContentPane().add(gridComponent, BorderLayout.CENTER);
                 getContentPane().revalidate(); // Refresh the layout
@@ -169,10 +157,10 @@ public class GridFrame extends JFrame
                 gridComponent = new GridComponent(grid);
 
                 Grid newGrid = new Grid(minGridSize, minGridSize);
-                grid.loadRleFile(rleData);
+                grid.loadRleFile(rleData);*/
 
 
-            }*/
+//            }
 
 
         } catch (UnsupportedFlavorException e)

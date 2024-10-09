@@ -6,6 +6,7 @@ public class Grid
     private int height;
     private int width;
 
+
     public Grid(int width, int height)
     {
         field = new int[height][width];
@@ -24,6 +25,19 @@ public class Grid
 
     public int getWidth() {
         return width;
+    }
+
+    // setters:
+    public void setField(int[][] field) {
+        this.field = field;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
 
@@ -144,29 +158,52 @@ public class Grid
         // another way to read file:
         //String wholeFile = IOUtils.toString(new FileReader(filepath));
 
+        int startX = 0;
+        int startY = 0;
+
         String[] lines = rle.split("\n");
         // for keeping track of where to place cells on grid:
-        int positionX = 0;
-        int positionY = 0;
+        for (String line : lines)
+        {
+            if (line.startsWith("x"))
+            {
+                String[] dimentions = line.split(",");
+                int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
+                int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
+                // to center pattern on grid:
+                startX = (this.width - patternWidth) / 2;
+                startY = (this.height - patternHeight) / 2;
+                break;
+            }
+        }
+
+        int positionX = startX;
+        int positionY = startY;
 
         for (String line : lines)
         {
-            if (line.startsWith("#C") || line.startsWith("#c"))
+            if (line.startsWith("#C") || line.startsWith("#c")
+                    || line.startsWith("x"))
             {
-                continue; // skip over comments
+                continue; // skip over comments and dimens
             }
-            if (line.startsWith("x"))
-            {
+//            if (line.startsWith("x"))
+//            {
+                /*
                 // set the dimentions
                 String[] dimentions = line.split(",");
                 // getting the number after the = sign:
-                int width = Integer.parseInt(dimentions[0].split("=")[1].trim());
-                int height = Integer.parseInt(dimentions[1].split("=")[1].trim());
-                field = new int[height][width];
+                int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
+                int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
+
+                int centerX = getWidth() - patternWidth / 2;
+                int centerY = getHeight() - patternHeight / 2;*/
+
+                /*field = new int[height][width];
                 this.width = width;
-                this.height = height;
-            } else
-            {
+                this.height = height;*/
+//            } else
+//            {
                 int count = 1; // default count
 
                 char[] charArray = line.toCharArray();
@@ -205,7 +242,7 @@ public class Grid
                     } else if (charArray[ix] == '$')
                     {
                         // new line so reset:
-                        positionX = 0;
+                        positionX = startX;
                         ++positionY;
                         count = 1;
                     } else if (charArray[ix] == '!')
@@ -213,7 +250,7 @@ public class Grid
                         return; // end of RLE file
                     }
                 }
-            }
+//            }
         }
     }
 
