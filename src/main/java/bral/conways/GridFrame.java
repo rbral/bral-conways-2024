@@ -41,7 +41,7 @@ public class GridFrame extends JFrame
 
         pasteButton = new JButton("Paste");
         south.add(pasteButton);
-        pasteButton.addActionListener(e -> rawPaste());
+        pasteButton.addActionListener(e -> paste());
 
         // put grid in center:
         gridComponent = new GridComponent(grid);
@@ -74,19 +74,9 @@ public class GridFrame extends JFrame
 
     private void rawPaste()
     {
-//        try
-//        {
-            //String clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-            //String rleData = clipboardContents;
             String rleData = "#C This is a glider.\nx = 3, y = 3\nbo$2bo$3o!";
             grid.loadRleFile(rleData);
             gridComponent.repaint();
-
-//        }
-        /*catch (UnsupportedFlavorException | IOException e)
-        {
-            e.printStackTrace();
-        }*/
     }
 
     private void paste()
@@ -115,14 +105,22 @@ public class GridFrame extends JFrame
                 rleData = clipboardContents;
             }
 
-
             // display the patten on grid:
-            if (rleData != null) {
+            grid.loadRleFile(rleData);
+            gridComponent.repaint();
+
+
+
+            // experimenting...
+            /*if (rleData != null) {
                 // minimum grid size is 100
                 int minGridSize = 100;
                 // temp grid to determine size of pattern
                 Grid tempGrid = new Grid(1, 1);
                 tempGrid.loadRleFile(rleData);
+
+                int patternWidth = tempGrid.getWidth();
+                int patternHeight = tempGrid.getHeight();
 
                 int requiredWidth = Math.max(minGridSize, tempGrid.getWidth());
                 int requiredHeight = Math.max(minGridSize, tempGrid.getHeight());
@@ -135,7 +133,7 @@ public class GridFrame extends JFrame
 
 
                     // center pattern on the grid
-                    /*int shiftX = (requiredWidth - grid.getWidth()) / 2;
+                    int shiftX = (requiredWidth - grid.getWidth()) / 2;
                     int shiftY = (requiredHeight - grid.getHeight()) / 2;
                     for (int y = 0; y < grid.getHeight(); ++y) {
                         for (int x = 0; x < grid.getWidth(); ++x) {
@@ -144,7 +142,7 @@ public class GridFrame extends JFrame
                             }
                         }
                     }
-                    gridComponent = new GridComponent(resizedGrid);*/
+                    gridComponent = new GridComponent(resizedGrid);
                 }
 
 
@@ -167,23 +165,23 @@ public class GridFrame extends JFrame
                 getContentPane().repaint(); // Repaint the new component
 
                 //gridComponent.repaint();
+                tempGrid = new Grid(requiredWidth, requiredHeight);
+                gridComponent = new GridComponent(grid);
 
-                /*tempGrid = new Grid(requiredWidth, requiredHeight);
-                gridComponent = new GridComponent(grid);*/
-
-                /*Grid newGrid = new Grid(minGridSize, minGridSize);
-                grid.loadRleFile(rleData);*/
+                Grid newGrid = new Grid(minGridSize, minGridSize);
+                grid.loadRleFile(rleData);
 
 
-            }
+            }*/
+
+
         } catch (UnsupportedFlavorException e)
         {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Clipboard does not contain text data.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Failed to load RLE data.", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
 
     }
