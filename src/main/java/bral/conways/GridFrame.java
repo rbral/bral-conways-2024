@@ -82,12 +82,14 @@ public class GridFrame extends JFrame
     private void paste()
     {
         try {
-            String clipboardContents = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+            String clipboardContents =
+                    (String) Toolkit.getDefaultToolkit().getSystemClipboard()
+                                    .getData(DataFlavor.stringFlavor);
 
             String rleData = null;
 
-            if (clipboardContents.startsWith("http://") ||
-                    clipboardContents.startsWith("https://"))
+            if (clipboardContents.startsWith("http://")
+                    || clipboardContents.startsWith("https://"))
             {
                 // load file from a URL
                 try (InputStream in = new URL(clipboardContents).openStream()) {

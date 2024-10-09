@@ -187,70 +187,70 @@ public class Grid
             {
                 continue; // skip over comments and dimens
             }
-//            if (line.startsWith("x"))
-//            {
-                /*
-                // set the dimentions
-                String[] dimentions = line.split(",");
-                // getting the number after the = sign:
-                int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
-                int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
+            //if (line.startsWith("x"))
+            //{
+            /*
+            // set the dimentions
+            String[] dimentions = line.split(",");
+            // getting the number after the = sign:
+            int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
+            int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
 
-                int centerX = getWidth() - patternWidth / 2;
-                int centerY = getHeight() - patternHeight / 2;*/
+            int centerX = getWidth() - patternWidth / 2;
+            int centerY = getHeight() - patternHeight / 2;*/
 
-                /*field = new int[height][width];
-                this.width = width;
-                this.height = height;*/
-//            } else
-//            {
-                int count = 1; // default count
+            /*field = new int[height][width];
+            this.width = width;
+            this.height = height;*/
+            //} else
+            //{
+            int count = 1; // default count
 
-                char[] charArray = line.toCharArray();
-                for (int ix = 0; ix < charArray.length; ix++)
+            char[] charArray = line.toCharArray();
+            for (int ix = 0; ix < charArray.length; ix++)
+            {
+                if (Character.isDigit(charArray[ix]))
                 {
-                    if (Character.isDigit(charArray[ix]))
-                    {
-                        // check for multi digit numbers:
-                        StringBuilder num = new StringBuilder();
-                        int tempIx = ix;
+                    // check for multi digit numbers:
+                    StringBuilder num = new StringBuilder();
+                    int tempIx = ix;
 
-                        while (tempIx < charArray.length && Character.isDigit(charArray[tempIx]))
-                        {
-                            num.append(charArray[tempIx]);
-                            ++tempIx;
-                        }
-                        // now we have a complete number so update count:
-                        count = Integer.parseInt(num.toString());
+                    while (tempIx < charArray.length && Character.isDigit(charArray[tempIx]))
+                    {
+                        num.append(charArray[tempIx]);
+                        ++tempIx;
+                    }
+                    // now we have a complete number so update count:
+                    count = Integer.parseInt(num.toString());
 
-                        // update ix to continue after the multi - digit number:
-                        ix = tempIx - 1; // -1 because main loop will do ix++
-                    }
-                    if (charArray[ix] == 'b')
-                    {
-                        // dead cells: move positionX to the right
-                        positionX += count;
-                        count = 1;
-                    } else if (charArray[ix] == 'o')
-                    {
-                        // alive cells: put count live cells
-                        for (int jx = 0; jx < count; jx++)
-                        {
-                            put(positionX++, positionY);
-                        }
-                        count = 1;
-                    } else if (charArray[ix] == '$')
-                    {
-                        // new line so reset:
-                        positionX = startX;
-                        ++positionY;
-                        count = 1;
-                    } else if (charArray[ix] == '!')
-                    {
-                        return; // end of RLE file
-                    }
+                    // update ix to continue after the multi - digit number:
+                    ix = tempIx - 1; // -1 because main loop will do ix++
                 }
-//            }
+                if (charArray[ix] == 'b')
+                {
+                    // dead cells: move positionX to the right
+                    positionX += count;
+                    count = 1;
+                } else if (charArray[ix] == 'o')
+                {
+                    // alive cells: put count live cells
+                    for (int jx = 0; jx < count; jx++)
+                    {
+                        put(positionX++, positionY);
+                    }
+                    count = 1;
+                } else if (charArray[ix] == '$')
+                {
+                    // new line so reset:
+                    positionX = startX;
+                    ++positionY;
+                    count = 1;
+                } else if (charArray[ix] == '!')
+                {
+                    return; // end of RLE file
+                }
+            }
+            //}
         }
     }
 
