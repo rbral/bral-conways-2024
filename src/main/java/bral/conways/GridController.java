@@ -15,11 +15,13 @@ public class GridController
 {
     Grid model;
     GridComponent view;
+
     public GridController(Grid model, GridComponent view)
     {
         this.model = model;
         this.view = view;
     }
+
     public void startTimer()
     {
 
