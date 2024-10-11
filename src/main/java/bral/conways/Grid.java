@@ -155,9 +155,6 @@ public class Grid
 
     public void loadRleFile(String rle)
     {
-        // another way to read file:
-        //String wholeFile = IOUtils.toString(new FileReader(filepath));
-
         int startX = 0;
         int startY = 0;
 
@@ -171,8 +168,8 @@ public class Grid
                 int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
                 int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
                 // to center pattern on grid:
-                startX = (this.width - patternWidth) / 2;
-                startY = (this.height - patternHeight) / 2;
+                startX = (100 - patternWidth) / 2;
+                startY = (100 - patternHeight) / 2;
                 break;
             }
         }
@@ -187,23 +184,7 @@ public class Grid
             {
                 continue; // skip over comments and dimens
             }
-            //if (line.startsWith("x"))
-            //{
-            /*
-            // set the dimentions
-            String[] dimentions = line.split(",");
-            // getting the number after the = sign:
-            int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
-            int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
 
-            int centerX = getWidth() - patternWidth / 2;
-            int centerY = getHeight() - patternHeight / 2;*/
-
-            /*field = new int[height][width];
-            this.width = width;
-            this.height = height;*/
-            //} else
-            //{
             int count = 1; // default count
 
             char[] charArray = line.toCharArray();
@@ -250,7 +231,6 @@ public class Grid
                     return; // end of RLE file
                 }
             }
-            //}
         }
     }
 

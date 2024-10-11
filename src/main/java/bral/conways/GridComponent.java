@@ -12,13 +12,16 @@ public class GridComponent extends JComponent
     /*private final int height;
     private final int width;*/
 
+    private final int cellSize;
+
+    public int getCellSize() {
+        return cellSize;
+    }
+
     public GridComponent(Grid grid)
     {
         this.grid = grid;
-        /*this.height = grid.getHeight();
-        this.width = grid.getWidth();*/
-
-        int cellSize = 20;
+        cellSize = 5;
         int width = grid.getWidth() * cellSize;
         int height = grid.getHeight() * cellSize;
         setPreferredSize(new Dimension(width, height));
@@ -75,12 +78,12 @@ public class GridComponent extends JComponent
 
         // grid lines:
         g.setColor(Color.white);
-        for (int x = 0; x < getWidth(); x += 20)
+        for (int x = 0; x < getWidth(); x += cellSize)
         {
             g.drawLine(x, 0, x, getHeight());
         }
 
-        for (int y = getHeight(); y > 0; y -= 20)
+        for (int y = getHeight(); y > 0; y -= cellSize)
         {
             g.drawLine(0, y, getWidth(), y);
         }
@@ -94,13 +97,12 @@ public class GridComponent extends JComponent
             {
                 if (grid.isAlive(x, y))
                 {
-                    int positionX = x * 20;
-                    int positionY = getHeight() - (y + 1) * 20;
-                    g.fillRect(positionX, positionY, 20, 20);
+                    int positionX = x * cellSize;
+                    int positionY = getHeight() - (y + 1) * cellSize;
+                    g.fillRect(positionX, positionY, cellSize, cellSize);
                 }
             }
         }
-        g.translate(30, getHeight() - 30);
     }
 
 

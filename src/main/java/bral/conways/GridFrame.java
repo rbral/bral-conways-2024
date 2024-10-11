@@ -19,10 +19,11 @@ public class GridFrame extends JFrame
     private GridComponent gridComponent;
     private JButton playPauseButton;
     private JButton pasteButton;
+    private GridController controller;
 
     public GridFrame()
     {
-        setSize(800, 400);
+        setSize(600, 600);
         setTitle("Conway's Game of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -41,7 +42,7 @@ public class GridFrame extends JFrame
 
         pasteButton = new JButton("Paste");
         south.add(pasteButton);
-        pasteButton.addActionListener(e -> defaultPaste());
+        pasteButton.addActionListener(e -> paste());
 
         // put grid in center:
         gridComponent = new GridComponent(grid);
@@ -50,11 +51,14 @@ public class GridFrame extends JFrame
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         main.add(scrollPane, BorderLayout.CENTER);
 
-        //main.add(gridComponent, BorderLayout.CENTER);
-
-        //pack(); // resize frame to fit preferred size
-        //setLocationRelativeTo(null); // center window on screen
         setVisible(true);
+
+        Grid game = new Grid(300, 300);
+        GridComponent gridComponent = new GridComponent(game);
+        controller = new GridController(game, gridComponent);
+
+        //gridComponent.addMouseListener(); // TODO need to finish this
+
     }
 
 
@@ -79,13 +83,6 @@ public class GridFrame extends JFrame
             playPauseButton.setText("Play");
         }
 
-    }
-
-    private void defaultPaste()
-    {
-            String rleData = "#C This is a glider.\nx = 3, y = 3\nbo$2bo$3o!";
-            grid.loadRleFile(rleData);
-            gridComponent.repaint();
     }
 
     private void paste()
@@ -120,58 +117,7 @@ public class GridFrame extends JFrame
             grid.loadRleFile(rleData);
             gridComponent.repaint();
 
-
-            // experimenting...
-            /*if (rleData != null) {
-                // minimum grid size is 100
-                int minGridSize = 100;
-                // temp grid to determine size of pattern
-                Grid tempGrid = new Grid(1, 1);
-                tempGrid.loadRleFile(rleData);
-
-                int patternWidth = tempGrid.getWidth();
-                int patternHeight = tempGrid.getHeight();
-
-                int requiredWidth = Math.max(minGridSize, patternWidth);
-                int requiredHeight = Math.max(minGridSize, patternHeight);
-
-                grid.setWidth(requiredWidth);
-                grid.setHeight(requiredHeight);
-                grid.setField(new int[requiredHeight][requiredWidth]);
-
-                // center pattern on the grid
-                int shiftX = (requiredWidth - patternWidth) / 2;
-                int shiftY = (requiredHeight - patternHeight) / 2;
-
-                for (int y = 0; y < grid.getHeight(); ++y) {
-                    for (int x = 0; x < grid.getWidth(); ++x) {
-                        if (grid.isAlive(x, y)) {
-                            grid.put(x + shiftX, y + shiftY);
-                        }
-                    }
-                }
-                gridComponent.repaint();*/
-
-                // update the grid component:
-                /*
-                please note: comments will be deleted after. they are only here
-                to show the effort I invested with multiple attempts
-
-               gridComponent = new GridComponent(grid);
-                getContentPane().removeAll(); // Remove the old component
-                getContentPane().add(gridComponent, BorderLayout.CENTER);
-                getContentPane().revalidate(); // Refresh the layout
-                getContentPane().repaint(); // Repaint the new component
-
-                //gridComponent.repaint();
-                tempGrid = new Grid(requiredWidth, requiredHeight);
-                gridComponent = new GridComponent(grid);
-
-                Grid newGrid = new Grid(minGridSize, minGridSize);
-                grid.loadRleFile(rleData);*/
-
-
-//            }
+            controller.paste(clipboardContents); // TODO delete rest of this method
 
 
         } catch (UnsupportedFlavorException e)
