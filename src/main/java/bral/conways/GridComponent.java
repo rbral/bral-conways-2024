@@ -9,20 +9,28 @@ import java.awt.event.MouseMotionListener;
 public class GridComponent extends JComponent
 {
     private final Grid grid;
-    private final int height;
-    private final int width;
+    /*private final int height;
+    private final int width;*/
+
+    private final int cellSize;
+
+    public int getCellSize() {
+        return cellSize;
+    }
 
     public GridComponent(Grid grid)
     {
         this.grid = grid;
-        this.height = grid.getHeight();
-        this.width = grid.getWidth();
+        cellSize = 5;
+        int width = grid.getWidth() * cellSize;
+        int height = grid.getHeight() * cellSize;
+        setPreferredSize(new Dimension(width, height));
 
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int posX = e.getX() / 20;
-                int posY = (getHeight() - e.getY()) / 20; // because y lines start at bottom
+                int posX = e.getX() / cellSize;
+                int posY = (getHeight() - e.getY()) / cellSize; // because y lines start at bottom
 
                 if (grid.isInBounds(posX, posY))
                 {
@@ -70,12 +78,12 @@ public class GridComponent extends JComponent
 
         // grid lines:
         g.setColor(Color.white);
-        for (int x = 0; x < getWidth(); x += 20)
+        for (int x = 0; x < getWidth(); x += cellSize)
         {
             g.drawLine(x, 0, x, getHeight());
         }
 
-        for (int y = getHeight(); y > 0; y -= 20)
+        for (int y = getHeight(); y > 0; y -= cellSize)
         {
             g.drawLine(0, y, getWidth(), y);
         }
@@ -83,17 +91,18 @@ public class GridComponent extends JComponent
         // alive cells:
         g.setColor(Color.black);
 
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < grid.getHeight(); y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < grid.getHeight(); x++)
             {
                 if (grid.isAlive(x, y))
                 {
-                    g.fillRect(x * 20, getHeight() - (y + 1) * 20, 20, 20);
+                    int positionX = x * cellSize;
+                    int positionY = getHeight() - (y + 1) * cellSize;
+                    g.fillRect(positionX, positionY, cellSize, cellSize);
                 }
             }
         }
-        g.translate(30, getHeight() - 30);
     }
 
 
