@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class GridFrame extends JFrame
@@ -21,11 +23,46 @@ public class GridFrame extends JFrame
         setTitle("Conway's Game of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // initialize model, view, and controller
+        // initialize model:
         grid = new Grid(100, 100);
+
+        // initialize view:
         gridComponent = new GridComponent(grid);
+        gridComponent.addMouseListener(new MouseListener()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                controller.toggleCell(e.getX(), e.getY());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+
+            }
+        });
+
+        // initialize controller:
         controller = new GridController(grid, gridComponent);
-        gridComponent.setController(controller);
 
         // set up layout
         JPanel main = new JPanel();

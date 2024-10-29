@@ -23,61 +23,8 @@ public class GridComponent extends JComponent
         int width = grid.getWidth() * cellSize;
         int height = grid.getHeight() * cellSize;
         setPreferredSize(new Dimension(width, height));
-
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                if (controller != null)
-                {
-                    int screenX = e.getX();
-                    int screenY = e.getY();
-                    controller.toggleCell(screenX, screenY);
-                }
-
-                /*int posX = e.getX() / cellSize;
-                int posY = (getHeight() - e.getY()) / cellSize; // because y lines start at bottom
-
-                if (grid.isInBounds(posX, posY))
-                {
-                    if (!grid.isAlive(posX, posY))
-                    {
-                        grid.put(posX, posY);
-                    } else {
-                        grid.remove(posX, posY);
-                    }
-                }
-                repaint();*/
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
-
-
     }
 
-    public void setController(GridController controller)
-    {
-        this.controller = controller;
-    }
     @Override
     protected void paintComponent(Graphics g)
     {
