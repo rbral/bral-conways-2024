@@ -2,6 +2,7 @@ package bral.conways;
 
 import org.apache.commons.io.IOUtils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -15,6 +16,7 @@ public class GridController
 {
     Grid model;
     GridComponent view;
+    private Timer timer;
 
     public GridController(Grid model, GridComponent view)
     {
@@ -24,12 +26,15 @@ public class GridController
 
     public void startTimer()
     {
-
+        timer = new Timer(1000, e -> {
+            model.nextGen();
+            view.repaint();
+        });
+        timer.start();
     }
-
     public void stopTimer()
     {
-
+        timer.stop();
     }
 
     public void paste(String clipboardContents)

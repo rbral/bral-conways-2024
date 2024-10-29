@@ -15,6 +15,8 @@ public class GridFrame extends JFrame
     private GridController controller;
     private Timer timer;
     private JButton playPauseButton;
+    private JButton playButton;
+    private JButton pauseButton;
     private JButton pasteButton;
 
     public GridFrame()
@@ -72,9 +74,14 @@ public class GridFrame extends JFrame
         JPanel south = new JPanel();
         main.add(south, BorderLayout.SOUTH);
 
-        playPauseButton = new JButton("Play");
-        south.add(playPauseButton);
-        playPauseButton.addActionListener(e -> playPause());
+        playButton = new JButton("Play");
+        playButton.addActionListener(e -> play());
+        south.add(playButton);
+
+        pauseButton = new JButton("Pause");
+        pauseButton.setEnabled(false);
+        pauseButton.addActionListener(e -> pause());
+        south.add(pauseButton);
 
         pasteButton = new JButton("Paste");
         south.add(pasteButton);
@@ -83,35 +90,20 @@ public class GridFrame extends JFrame
         main.add(gridComponent, BorderLayout.CENTER);
 
         setVisible(true);
-
-
-
-        //gridComponent.addMouseListener(); // TODO need to finish this
-
     }
 
-
-
-    private void playPause()
+    private void play()
     {
-        if (timer == null || !timer.isRunning())
-        {
-            // game is not running, so then start playing:
-            timer = new Timer(1000, e -> {
-                grid.nextGen();
-                gridComponent.repaint();
-            });
-            timer.start();
+        controller.startTimer();
+        playButton.setEnabled(false);
+        pauseButton.setEnabled(true);
+    }
 
-            // set button text to Pause:
-            playPauseButton.setText("Pause");
-        } else {
-            timer.stop();
-
-            // set button text to Play:
-            playPauseButton.setText("Play");
-        }
-
+    private void pause()
+    {
+        controller.stopTimer();
+        pauseButton.setEnabled(false);
+        playButton.setEnabled(true);
     }
 
     private void paste()
