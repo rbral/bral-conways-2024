@@ -15,9 +15,6 @@ public class Grid
     }
 
     // getters:
-    public int[][] getField() {
-        return field;
-    }
 
     public int getHeight() {
         return height;
@@ -25,19 +22,6 @@ public class Grid
 
     public int getWidth() {
         return width;
-    }
-
-    // setters:
-    public void setField(int[][] field) {
-        this.field = field;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
 

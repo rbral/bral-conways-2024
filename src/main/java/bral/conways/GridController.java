@@ -32,6 +32,7 @@ public class GridController
         });
         timer.start();
     }
+
     public void stopTimer()
     {
         timer.stop();

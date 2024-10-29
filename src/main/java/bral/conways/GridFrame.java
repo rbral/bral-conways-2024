@@ -13,8 +13,6 @@ public class GridFrame extends JFrame
     private Grid grid;
     private GridComponent gridComponent;
     private GridController controller;
-    private Timer timer;
-    private JButton playPauseButton;
     private JButton playButton;
     private JButton pauseButton;
     private JButton pasteButton;
