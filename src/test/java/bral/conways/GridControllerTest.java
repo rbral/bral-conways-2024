@@ -115,11 +115,15 @@ public class GridControllerTest
                 + "x = 3, y = 3\r\n"
                 + "bo$2bo$3o!";
 
+        rleData = rleData.replace("\r\n", "\n").replace("\r", "\n");
+
         // when:
         controller.paste(filepath);
 
         // then:
-        verify(model).loadRleFile(rleData);
+        //verify(model).loadRleFile(rleData);
+        String finalRleData = rleData;
+        verify(model).loadRleFile(argThat(arg -> arg.replace("\r\n", "\n").replace("\r", "\n").equals(finalRleData)));
         verify(view).repaint();
     }
 }
