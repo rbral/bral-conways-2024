@@ -106,8 +106,9 @@ public class GridControllerTest
 
         // use classloader so not dependent on local filepath:
         URL resource = getClass().getClassLoader().getResource("glider.rle");
-        //assert resource != null : "Resource file not found";
+        assert resource != null : "Resource file not found";
         File file = new File(resource.getFile());
+
         String filepath = file.getAbsolutePath();
 
         String rleData = "#C This is a glider.\r\n"
