@@ -35,10 +35,6 @@ public class GridController
     public void paste(String clipboardContents)
     {
         try {
-            /*String clipboardContents =
-                    (String) Toolkit.getDefaultToolkit().getSystemClipboard()
-                            .getData(DataFlavor.stringFlavor);*/
-
             String rleData = null;
 
             if (clipboardContents.startsWith("http://")
