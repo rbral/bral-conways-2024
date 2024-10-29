@@ -58,6 +58,20 @@ public class GridControllerTest
     @Test
     public void pasteText()
     {
+        // given
+        Grid model = mock();
+        GridComponent view = mock();
+        GridController controller = new GridController(model, view);
+        String rleData = "#C This is a glider.\n" +
+                "x = 3, y = 3\n" +
+                "bo$2bo$3o!";
+
+        // when
+        controller.paste(rleData);
+
+        // then
+        verify(model).loadRleFile(rleData);
+        verify(view).repaint();
 
     }
 
@@ -68,16 +82,15 @@ public class GridControllerTest
         GridComponent view = mock();
         GridController controller = new GridController(model, view);
         String url = "https://conwaylife.com/patterns/glider.rle";
-
-        // when:
-        controller.paste(url);
-
         String rleData = "#N Glider\r\n" +
                 "#O Richard K. Guy\r\n" +
                 "#C The smallest, most common, and first discovered spaceship. Diagonal, has period 4 and speed c/4.\r\n" +
                 "#C www.conwaylife.com/wiki/index.php?title=Glider\r\n" +
                 "x = 3, y = 3, rule = B3/S23\r\n" +
                 "bob$2bo$3o!";
+
+        // when:
+        controller.paste(url);
 
         // then:
         verify(model).loadRleFile(rleData);
