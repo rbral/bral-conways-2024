@@ -152,8 +152,8 @@ public class Grid
                 int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
                 int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
                 // to center pattern on grid:
-                startX = (100 - patternWidth) / 2;
-                startY = (100 - patternHeight) / 2;
+                startX = (width - patternWidth) / 2;
+                startY = (height - patternHeight) / 2;
                 break;
             }
         }
