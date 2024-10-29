@@ -2,6 +2,9 @@ package bral.conways;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.net.URL;
+
 import static org.mockito.Mockito.*;
 
 public class GridControllerTest
@@ -100,7 +103,13 @@ public class GridControllerTest
         Grid model = mock();
         GridComponent view = mock();
         GridController controller = new GridController(model, view);
-        String filepath = "C:\\Users\\rbral\\IdeaProjects\\bral-conways-2024\\src\\main\\resources\\glider.rle";
+
+        // use classloader so not dependent on local filepath:
+        URL resource = getClass().getClassLoader().getResource("glider.rle");
+        //assert resource != null : "Resource file not found";
+        File file = new File(resource.getFile());
+        String filepath = file.getAbsolutePath();
+
         String rleData = "#C This is a glider.\r\n"
                 + "x = 3, y = 3\r\n"
                 + "bo$2bo$3o!";
