@@ -74,6 +74,8 @@ public class GridController
     public void toggleCell(int screenX, int screenY)
     {
         int posX = screenX / view.getCellSize();
+        int testViewHeight = view.getHeight();
+        int testModelHeight = model.getHeight();
         int posY = (view.getHeight() - screenY) / view.getCellSize(); // because y lines start at bottom
 
         if (model.isInBounds(posX, posY))

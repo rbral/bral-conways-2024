@@ -12,6 +12,32 @@ public class GridControllerTest
                 bo$2bo$3o!
                 """;
     @Test
+    void toggleCellOn()
+    {
+        // given
+        Grid model = mock();
+        GridComponent view = mock();
+        GridController controller = new GridController(model, view);
+        doReturn(5).when(view).getCellSize();
+        /*doReturn(100).when(model).getWidth();
+        doReturn(100).when(model).getHeight();*/
+        doReturn(100).when(view).getWidth();
+        doReturn(529).when(view).getHeight(); // that's the height that the screen opens with
+
+        doReturn(false).when(model).isAlive(10, 85);
+        doReturn(true).when(model).isInBounds(10, 85);
+
+        // when
+        controller.toggleCell(50, 100);
+
+        // then
+        verify(model).put(10, 85);
+        verify(view).repaint();
+    }
+/*
+
+    // from class:
+    @Test
     void toggleCell()
     {
         // given
@@ -29,20 +55,15 @@ public class GridControllerTest
         // then
         verify(model).put(5, 10);
         verify(view).repaint();
-
-        /*
-        if you call a void method on a mock, it has no effect
-        if the method has a return type of:
-            boolean return type >> it returns false
-            int >> returns 0
-            object >> returns null
-        so you need to specify what it should return with doReturn
-
-
-        the only object that should not be a mock is the object
-        that you are currently testing
-         */
     }
+*/
+
+    @Test
+    void toggleCellOff()
+    {
+
+    }
+
 
     // TODO missing toggleCellOff and switch up the methods
 
