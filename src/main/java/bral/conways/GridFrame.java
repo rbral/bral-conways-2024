@@ -25,6 +25,7 @@ public class GridFrame extends JFrame
         grid = new Grid(100, 100);
         gridComponent = new GridComponent(grid);
         controller = new GridController(grid, gridComponent);
+        gridComponent.setController(controller);
 
         // set up layout
         JPanel main = new JPanel();

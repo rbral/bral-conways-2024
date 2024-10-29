@@ -9,9 +9,7 @@ import java.awt.event.MouseMotionListener;
 public class GridComponent extends JComponent
 {
     private final Grid grid;
-    /*private final int height;
-    private final int width;*/
-
+    private GridController controller;
     private final int cellSize;
 
     public int getCellSize() {
@@ -29,7 +27,15 @@ public class GridComponent extends JComponent
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int posX = e.getX() / cellSize;
+
+                if (controller != null)
+                {
+                    int screenX = e.getX();
+                    int screenY = e.getY();
+                    controller.toggleCell(screenX, screenY);
+                }
+
+                /*int posX = e.getX() / cellSize;
                 int posY = (getHeight() - e.getY()) / cellSize; // because y lines start at bottom
 
                 if (grid.isInBounds(posX, posY))
@@ -41,7 +47,7 @@ public class GridComponent extends JComponent
                         grid.remove(posX, posY);
                     }
                 }
-                repaint();
+                repaint();*/
             }
 
             @Override
@@ -68,6 +74,10 @@ public class GridComponent extends JComponent
 
     }
 
+    public void setController(GridController controller)
+    {
+        this.controller = controller;
+    }
     @Override
     protected void paintComponent(Graphics g)
     {
