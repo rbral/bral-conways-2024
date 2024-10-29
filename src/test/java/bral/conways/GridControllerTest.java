@@ -97,42 +97,23 @@ public class GridControllerTest
         verify(view).repaint();
     }
 
-    // from class:
-    /*@Test
-    public void pasteUrl() {
-        // given:
-        Grid model = mock();
-        GridComponent view = mock();
-        GridController controller = new GridController(model, view);
-        String url = "https://conwaylife.com/patterns/glider.rle";
-
-        // when:
-        controller.paste(GLIDER_RLE);
-
-        // then:
-        verify(model).loadRleFile(GLIDER_RLE);
-        verify(view).repaint();
-    }*/
-
     @Test
-    public void pasteFile()
+    public void pasteFilepath()
     {
         // given:
         Grid model = mock();
         GridComponent view = mock();
         GridController controller = new GridController(model, view);
-        String filename = "glider.rle";
-        String rle = """
-                #C This is a glider.
-                x = 3, y = 3
-                bo$2bo$3o!
-                """.trim().replace("\n", "\r\n");
+        String filepath = "C:\\Users\\rbral\\IdeaProjects\\bral-conways-2024\\src\\main\\resources\\glider.rle";
+        String rleData = "#C This is a glider.\r\n" +
+                "x = 3, y = 3\r\n" +
+                "bo$2bo$3o!";
 
         // when:
-        controller.paste(filename);
+        controller.paste(filepath);
 
         // then:
-        verify(model).loadRleFile(rle);
+        verify(model).loadRleFile(rleData);
         verify(view).repaint();
     }
 }
