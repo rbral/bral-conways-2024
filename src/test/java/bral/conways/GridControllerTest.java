@@ -32,29 +32,6 @@ public class GridControllerTest
         verify(model).put(10, 85);
         verify(view).repaint();
     }
-/*
-
-    // from class:
-    @Test
-    void toggleCell()
-    {
-        // given
-        Grid model = mock();
-        GridComponent view = mock();
-        GridController controller = new GridController(model, view);
-        doReturn(10).when(view).getCellSize();
-        doReturn(100).when(model).getWidth();
-        doReturn(100).when(model).getHeight();
-
-
-        // when
-        controller.toggleCell(50, 100);
-
-        // then
-        verify(model).put(5, 10);
-        verify(view).repaint();
-    }
-*/
 
     @Test
     void toggleCellOff()
@@ -78,11 +55,38 @@ public class GridControllerTest
         verify(view).repaint();
     }
 
+    @Test
+    public void pasteText()
+    {
 
-    // TODO missing toggleCellOff and switch up the methods
+    }
 
     @Test
-    public void paste() {
+    public void pasteUrl() {
+        // given:
+        Grid model = mock();
+        GridComponent view = mock();
+        GridController controller = new GridController(model, view);
+        String url = "https://conwaylife.com/patterns/glider.rle";
+
+        // when:
+        controller.paste(url);
+
+        String rleData = "#N Glider\r\n" +
+                "#O Richard K. Guy\r\n" +
+                "#C The smallest, most common, and first discovered spaceship. Diagonal, has period 4 and speed c/4.\r\n" +
+                "#C www.conwaylife.com/wiki/index.php?title=Glider\r\n" +
+                "x = 3, y = 3, rule = B3/S23\r\n" +
+                "bob$2bo$3o!";
+
+        // then:
+        verify(model).loadRleFile(rleData);
+        verify(view).repaint();
+    }
+
+    // from class:
+    /*@Test
+    public void pasteUrl() {
         // given:
         Grid model = mock();
         GridComponent view = mock();
@@ -95,13 +99,7 @@ public class GridControllerTest
         // then:
         verify(model).loadRleFile(GLIDER_RLE);
         verify(view).repaint();
-    }
-
-    @Test
-    public void pasteUrl()
-    {
-
-    }
+    }*/
 
     @Test
     public void pasteFile()
