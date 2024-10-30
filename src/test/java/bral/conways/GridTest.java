@@ -69,6 +69,4 @@ public class GridTest {
         // then
         assertEquals("010\n001\n111\n", grid.toString());
     }
-
-
 }

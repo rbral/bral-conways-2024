@@ -6,6 +6,7 @@ public class Grid
     private int height;
     private int width;
 
+
     public Grid(int width, int height)
     {
         field = new int[height][width];
@@ -14,9 +15,6 @@ public class Grid
     }
 
     // getters:
-    public int[][] getField() {
-        return field;
-    }
 
     public int getHeight() {
         return height;
@@ -141,74 +139,80 @@ public class Grid
 
     public void loadRleFile(String rle)
     {
+        int startX = 0;
+        int startY = 0;
+
         String[] lines = rle.split("\n");
         // for keeping track of where to place cells on grid:
-        int positionX = 0;
-        int positionY = 0;
+        for (String line : lines)
+        {
+            if (line.startsWith("x"))
+            {
+                String[] dimentions = line.split(",");
+                int patternWidth = Integer.parseInt(dimentions[0].split("=")[1].trim());
+                int patternHeight = Integer.parseInt(dimentions[1].split("=")[1].trim());
+                // to center pattern on grid:
+                startX = (width - patternWidth) / 2;
+                startY = (height - patternHeight) / 2;
+                break;
+            }
+        }
+
+        int positionX = startX;
+        int positionY = startY;
 
         for (String line : lines)
         {
-            if (line.startsWith("#C") || line.startsWith("#c"))
+            if (line.startsWith("#C") || line.startsWith("#c")
+                    || line.startsWith("x"))
             {
-                continue; // skip over comments
+                continue; // skip over comments and dimens
             }
-            if (line.startsWith("x"))
-            {
-                // set the dimentions
-                String[] dimentions = line.split(",");
-                // getting the number after the = sign:
-                int width = Integer.parseInt(dimentions[0].split("=")[1].trim());
-                int height = Integer.parseInt(dimentions[1].split("=")[1].trim());
-                field = new int[height][width];
-                this.width = width;
-                this.height = height;
-            } else
-            {
-                int count = 1; // default count
 
-                char[] charArray = line.toCharArray();
-                for (int ix = 0; ix < charArray.length; ix++)
+            int count = 1; // default count
+
+            char[] charArray = line.toCharArray();
+            for (int ix = 0; ix < charArray.length; ix++)
+            {
+                if (Character.isDigit(charArray[ix]))
                 {
-                    if (Character.isDigit(charArray[ix]))
-                    {
-                        // check for multi digit numbers:
-                        StringBuilder num = new StringBuilder();
-                        int tempIx = ix;
+                    // check for multi digit numbers:
+                    StringBuilder num = new StringBuilder();
+                    int tempIx = ix;
 
-                        while (tempIx < charArray.length && Character.isDigit(charArray[tempIx]))
-                        {
-                            num.append(charArray[tempIx]);
-                            ++tempIx;
-                        }
-                        // now we have a complete number so update count:
-                        count = Integer.parseInt(num.toString());
+                    while (tempIx < charArray.length && Character.isDigit(charArray[tempIx]))
+                    {
+                        num.append(charArray[tempIx]);
+                        ++tempIx;
+                    }
+                    // now we have a complete number so update count:
+                    count = Integer.parseInt(num.toString());
 
-                        // update ix to continue after the multi - digit number:
-                        ix = tempIx - 1; // -1 because main loop will do ix++
+                    // update ix to continue after the multi - digit number:
+                    ix = tempIx - 1; // -1 because main loop will do ix++
+                }
+                if (charArray[ix] == 'b')
+                {
+                    // dead cells: move positionX to the right
+                    positionX += count;
+                    count = 1;
+                } else if (charArray[ix] == 'o')
+                {
+                    // alive cells: put count live cells
+                    for (int jx = 0; jx < count; jx++)
+                    {
+                        put(positionX++, positionY);
                     }
-                    if (charArray[ix] == 'b')
-                    {
-                        // dead cells: move positionX to the right
-                        positionX += count;
-                        count = 1;
-                    } else if (charArray[ix] == 'o')
-                    {
-                        // alive cells: put count live cells
-                        for (int jx = 0; jx < count; jx++)
-                        {
-                            put(positionX++, positionY);
-                        }
-                        count = 1;
-                    } else if (charArray[ix] == '$')
-                    {
-                        // new line so reset:
-                        positionX = 0;
-                        ++positionY;
-                        count = 1;
-                    } else if (charArray[ix] == '!')
-                    {
-                        return; // end of RLE file
-                    }
+                    count = 1;
+                } else if (charArray[ix] == '$')
+                {
+                    // new line so reset:
+                    positionX = startX;
+                    ++positionY;
+                    count = 1;
+                } else if (charArray[ix] == '!')
+                {
+                    return; // end of RLE file
                 }
             }
         }
