@@ -9,12 +9,7 @@ import java.awt.event.MouseMotionListener;
 public class GridComponent extends JComponent
 {
     private final Grid grid;
-    private GridController controller;
     private final int cellSize;
-
-    public int getCellSize() {
-        return cellSize;
-    }
 
     public GridComponent(Grid grid)
     {
@@ -23,6 +18,11 @@ public class GridComponent extends JComponent
         int width = grid.getWidth() * cellSize;
         int height = grid.getHeight() * cellSize;
         setPreferredSize(new Dimension(width, height));
+    }
+
+    public int getCellSize()
+    {
+        return cellSize;
     }
 
     @Override

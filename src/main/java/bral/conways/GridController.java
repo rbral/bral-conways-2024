@@ -14,8 +14,8 @@ import java.net.URL;
 
 public class GridController
 {
-    Grid model;
-    GridComponent view;
+    private Grid model;
+    private GridComponent view;
     private Timer timer;
 
     public GridController(Grid model, GridComponent view)
